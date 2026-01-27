@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-deepBlue text-myWhite overflow-x-hidden">
-    <Navbar :menu-open="menuOpen" @update:menu-open="menuOpen = $event" />
-    <MobileMenu :menu-open="menuOpen" @update:menu-open="menuOpen = $event" />
+  <div class="relative min-h-screen bg-deepBlue text-myWhite overflow-x-hidden">
+    <Navbar :menu-open="menuOpen" @toggle-menu="menuOpen = !menuOpen" />
+    <MobileMenu :menu-open="menuOpen" @close="menuOpen = false" />
 
     <Home />
 
@@ -11,15 +11,17 @@
 
     <HydrationPlanos :hydrate-on-visible="{ rootMargin: '200px' }" />
 
-    <HydrationResultados :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationResultados :hydrate-on-visible="{ rootMargin: '1200px' }" />
 
-    <HydrationConquistas :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationConquistas :hydrate-on-visible="{ rootMargin: '1200px' }" />
 
-    <HydrationFeedBack :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationFeedBack :hydrate-on-visible="{ rootMargin: '1200px' }" />
 
-    <HydrationTimeTf :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationTimeTf :hydrate-on-visible="{ rootMargin: '1200px' }" />
 
     <HydrationFooter :hydrate-on-visible="{ rootMargin: '200px' }" />
+
+    <ArrowTop />
   </div>
 </template>
 

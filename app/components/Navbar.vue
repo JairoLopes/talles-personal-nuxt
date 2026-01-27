@@ -26,7 +26,7 @@
         <div
           id="burger-zip"
           class="w-7 h-5 cursor-pointer z-40 lg:hidden"
-          @click="$emit('toggle-menu')"
+          @click="$emit('toggleMenu')"
           aria-label="Abrir menu"
         >
           <Icon name="lucide:menu" size="30" />
@@ -61,7 +61,7 @@ defineProps<{
 
 // Define os eventos que o componente emite
 defineEmits<{
-  "toggle-menu": [];
+  toggleMenu: [];
 }>();
 
 // Dados dos links de navegação
