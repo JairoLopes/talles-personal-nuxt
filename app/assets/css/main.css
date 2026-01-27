@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/* Configurações do tema para Tailwind v4 */
+@theme {
+  /* Cores personalizadas */
+  --color-mainTheme: #1e90ff;
+  --color-secondaryTheme: #ffcc00;
+  --color-myWhite: #e2e6e9;
+  --color-deepBlue: #0d0c0c;
+  --color-navBlack: #000;
+
+  /* Breakpoints personalizados */
+  --breakpoint-smallHome: 639px;
+  --breakpoint-mobNav: 875px;
+  --breakpoint-mobRes: 475px;
+  --breakpoint-mobTF: 425px;
+  --breakpoint-mobFD: 250px;
+  --breakpoint-mobFD2: 351px;
+
+  /* Animações customizadas */
+  --animate-loading: loading 0.8s ease-in-out infinite;
+  --animate-blink: blink 0.8s step-end infinite;
+  --animate-calmSpin: calm-spin 1.5s ease-in-out infinite;
+  --animate-balanco: balanco 1.5s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 20s linear infinite;
+
+  @keyframes loading {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(250%);
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes calm-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    80% {
+      transform: rotate(360deg);
+    }
+    90% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes balanco {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* Classes personalizadas */
+.gradient-text {
+  @apply bg-gradient-to-r from-sky-600 via-mainTheme to-blue-600 bg-clip-text text-transparent;
+}
+
+.gradient-text2 {
+  @apply bg-gradient-to-r from-myWhite/90 to-myWhite/95 bg-clip-text text-transparent;
+}
+
+.section-style {
+  @apply min-h-screen flex justify-center pt-[10%] pb-20;
+}
+
+.h2-style {
+  @apply text-3xl lg:text-4xl font-bold mb-8 text-center;
+}
+
+/* Botões personalizados */
+.btn-hover {
+  @apply bg-mainTheme text-white py-3 px-6 font-medium transition relative
+  overflow-hidden rounded-sm border border-mainTheme shadow-lg
+  before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center
+  before:-translate-x-20 before:rotate-45 before:bg-deepBlue before:duration-1000
+  hover:text-white hover:shadow-mainTheme hover:shadow-lg hover:before:h-64
+  hover:before:-translate-y-32 transition-shadow duration-1000
+  active:scale-95;
+}
+
+.btn-hover2 {
+  @apply bg-deepBlue text-white py-3 px-6 font-medium transition relative
+  overflow-hidden rounded-sm border border-mainTheme shadow-lg
+  before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45 before:bg-mainTheme before:duration-1000
+  shadow-mainTheme hover:shadow-none transition-shadow duration-1000 hover:before:h-64 hover:before:-translate-y-32
+  active:scale-95;
+}
+
+.btn-submit {
+  @apply bg-deepBlue text-white py-3 px-6 font-medium transition relative overflow-hidden rounded-sm border border-mainTheme shadow-lg
+  transition-all duration-600
+  shadow-mainTheme hover:shadow-secondaryTheme hover:border-secondaryTheme hover:-translate-y-1;
+}
+
+/* Estilos globais */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Animação para texto rotativo */
+.text-rotate-enter-active,
+.text-rotate-leave-active {
+  transition: all 0.5s;
+}
+
+.text-rotate-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.text-rotate-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
