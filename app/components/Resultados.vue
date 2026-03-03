@@ -236,10 +236,13 @@ const carouselMeusResultadosConfig = {
 };
 
 const alunosData = [
+  { path: "/img/img_Resultado_Alunos/first.jpeg" },
+  { path: "/img/img_Resultado_Alunos/lastAlunoVerso.jpeg" },
+  { path: "/img/img_Resultado_Alunos/lastAlunoFrente.jpeg" },
+  { path: "/img/img_Resultado_Alunos/felipe.png" },
   { path: "/img/img_Resultado_Alunos/tai.jpeg" },
   { path: "/img/img_Resultado_Alunos/barbara.jpeg" },
   { path: "/img/img_Resultado_Alunos/julio.png" },
-  { path: "/img/img_Resultado_Alunos/felipe.png" },
   { path: "/img/img_Resultado_Alunos/alunoNovo1.jpeg" },
   { path: "/img/img_Resultado_Alunos/alunoNovo2.jpeg" },
   { path: "/img/img_Resultado_Alunos/alunoNovo3.jpeg" },
@@ -247,6 +250,12 @@ const alunosData = [
 ];
 
 const meusResultados = [
+  {
+    path: "/img/profile/t26.jpeg",
+    titulo: "Performance Atleta",
+    descricao:
+      "Foto atual: Março/2026 - Pico de densidade muscular e maturidade alcançada através do protocolo de competição.",
+  },
   {
     path: "/img/profile/t3.jpeg",
     titulo: "Performance Atleta",

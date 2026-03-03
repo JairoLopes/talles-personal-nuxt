@@ -25,12 +25,12 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-          "Transforme seu corpo com a metodologia do Personal Trainer Talles Furtado. Especialista em hipertrofia e emagrecimento.",
+            "Transforme seu corpo com a metodologia do Personal Trainer Talles Furtado. Especialista em hipertrofia e emagrecimento.",
         },
         {
           name: "keywords",
           content:
-          "personal trainer, hipertrofia, emagrecimento, musculação, treino, dieta, Talles Furtado",
+            "personal trainer, hipertrofia, emagrecimento, musculação, treino, dieta, Talles Furtado",
         },
         // Open Graph (WhatsApp, Facebook, LinkedIn)
         { property: "og:type", content: "website" },
@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         {
           property: "og:description",
           content:
-          "Transforme seu corpo com o Time TF. Treinos e dietas personalizadas.",
+            "Transforme seu corpo com o Time TF. Treinos e dietas personalizadas.",
         },
         {
           property: "og:image",
