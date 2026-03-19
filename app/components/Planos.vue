@@ -86,7 +86,16 @@
                 >
                   R$ {{ plano.valor.toFixed(2).replace(".", ",") }}
                 </div>
-                <p class="text-white/60 text-sm mt-1">
+
+                <!-- Subtítulo do preço — reutilizado para exibir indicador de desconto sem alterar altura -->
+                <p
+                  v-if="plano.desconto"
+                  class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-0.5 rounded-full bg-mainTheme/15 border border-mainTheme/30 text-mainTheme text-xs font-semibold tracking-wide animate-pulse"
+                >
+                  <Icon name="lucide:tag" class="w-3 h-3 flex-shrink-0" />
+                  {{ plano.desconto }}
+                </p>
+                <p v-else class="text-white/60 text-sm mt-1">
                   {{
                     plano.plano.includes("Mensal")
                       ? "por mês"
@@ -202,6 +211,7 @@ const planosData = [
     tipoPlano: "Plano padrão",
     dieta: true,
     popular: false,
+    desconto: null,
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -217,6 +227,7 @@ const planosData = [
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: false,
+    desconto: null,
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -229,10 +240,11 @@ const planosData = [
   },
   {
     plano: "Semestral",
-    valor: 450.0,
+    valor: 499.99,
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: true,
+    desconto: "Clique e ganhe desconto exclusivo",
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -249,6 +261,7 @@ const planosData = [
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: false,
+    desconto: null,
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -265,6 +278,7 @@ const planosData = [
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: false,
+    desconto: null,
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -282,6 +296,7 @@ const planosData = [
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: false,
+    desconto: null,
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
