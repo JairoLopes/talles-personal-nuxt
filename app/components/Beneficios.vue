@@ -154,7 +154,7 @@
           <!-- Depoimento ou informação adicional -->
           <div class="mt-12 pt-8 border-t border-white/10 text-center">
             <p class="text-white/60 text-sm italic">
-              "Mais de 50 alunos já transformaram suas vidas com nossa
+              "Mais de 1000 alunos já transformaram suas vidas com nossa
               metodologia. Agora é sua vez de fazer parte dessa história de
               sucesso."
             </p>
