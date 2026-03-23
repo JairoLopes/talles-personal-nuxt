@@ -4,7 +4,6 @@
     class="section-style bg-gradient-to-b from-deepBlue to-navBlack"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <!-- Cabeçalho -->
       <div class="text-center mb-16">
         <div
           v-motion="animations.slideUp"
@@ -28,11 +27,8 @@
         </p>
       </div>
 
-      <!-- Conteúdo Principal -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <!-- Coluna da Esquerda - Formação e Foco -->
         <div class="space-y-12">
-          <!-- Cards de Formação -->
           <div class="space-y-8">
             <div
               v-for="(item, index) in formacaoData"
@@ -65,7 +61,6 @@
             </div>
           </div>
 
-          <!-- Filosofia -->
           <div
             v-motion="animations.slideUp"
             class="relative overflow-hidden rounded-2xl p-8"
@@ -99,9 +94,7 @@
           </div>
         </div>
 
-        <!-- Coluna da Direita - Serviços e Metodologia -->
         <div class="space-y-12">
-          <!-- Serviços -->
           <div>
             <div
               v-motion="animations.slideUp"
@@ -145,7 +138,6 @@
             </div>
           </div>
 
-          <!-- Metodologia -->
           <div>
             <div
               v-motion="animations.slideUp"
@@ -187,7 +179,6 @@
             </div>
           </div>
 
-          <!-- CTA -->
           <div
             v-motion="animations.scaleIn"
             class="bg-gradient-to-r from-mainTheme/10 to-secondaryTheme/10 border border-white/10 rounded-2xl p-8 text-center"
@@ -212,12 +203,79 @@
         </div>
       </div>
 
-      <!-- Experiência Complementar -->
       <div
         v-motion="animations.slideUp"
         class="mt-20 pt-12 border-t border-white/10"
       >
-        <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">
+            Cursos e Certificações
+          </h3>
+          <p class="text-white/70 max-w-2xl mx-auto text-lg">
+            Busco constantemente pelo que há de mais recente na ciência para
+            aplicar as melhores evidências nos treinos dos meus alunos.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div
+            v-for="(curso, index) in cursosData"
+            :key="index"
+            v-motion="cursosStagger(index)"
+            class="relative group bg-gradient-to-br from-navBlack/80 to-deepBlue/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-mainTheme/30 transition-all duration-300"
+          >
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-mainTheme/10 to-secondaryTheme/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none"
+            ></div>
+
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4"
+            >
+              <div
+                class="w-14 h-14 flex-shrink-0 rounded-xl bg-gradient-to-br from-mainTheme/20 to-mainTheme/10 border border-mainTheme/30 flex items-center justify-center"
+              >
+                <Icon
+                  :name="curso.icon"
+                  class="w-6 h-6 text-mainTheme group-hover:text-secondaryTheme transition-colors duration-300"
+                />
+              </div>
+              <span
+                class="bg-white/5 text-white/60 text-xs font-bold px-3 py-1.5 rounded-full border border-white/10 tracking-widest uppercase self-start sm:self-auto"
+              >
+                {{ curso.date }}
+              </span>
+            </div>
+
+            <h4
+              class="text-xl font-bold text-white mb-5 group-hover:text-mainTheme transition-colors duration-300 leading-snug"
+            >
+              {{ curso.title }}
+            </h4>
+
+            <ul class="space-y-3">
+              <li
+                v-for="(topico, idx) in curso.topics"
+                :key="idx"
+                class="flex items-start gap-3"
+              >
+                <Icon
+                  name="lucide:check-circle"
+                  class="w-5 h-5 text-secondaryTheme mt-0.5 flex-shrink-0"
+                />
+                <span class="text-white/70 text-sm leading-relaxed">{{
+                  topico
+                }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-motion="animations.slideUp"
+        class="mt-20 pt-12 border-t border-white/10"
+      >
+        <div class="max-w-5xl mx-auto">
           <h3
             class="text-2xl lg:text-3xl font-bold text-white text-center mb-12"
           >
@@ -229,7 +287,7 @@
               v-for="(item, index) in experiencias"
               :key="index"
               v-motion="experienciasStagger(index)"
-              :class="`bg-gradient-to-br ${item.color} border border-white/10 rounded-2xl p-8 text-center`"
+              :class="`bg-gradient-to-br ${item.color} border border-white/10 rounded-2xl p-8 text-center hover:-translate-y-2 transition-transform duration-300`"
             >
               <h4 class="text-xl font-bold text-white mb-4">
                 {{ item.title }}
@@ -250,6 +308,7 @@ import { animations, createStagger } from "~/utils/animations";
 const formacaoStagger = createStagger("scaleIn", 200);
 const servicosStagger = createStagger("slideLeft", 200);
 const metodologiaStagger = createStagger("popIn", 100);
+const cursosStagger = createStagger("slideUp", 150);
 const experienciasStagger = createStagger("slideUp", 100);
 
 // Dados de formação
@@ -315,6 +374,32 @@ const metodologiaData = [
     title: "Atualização Mensal",
     description:
       "Treinos revisados e atualizados mensalmente para evitar platô e manter evolução constante",
+  },
+];
+
+// Dados de cursos e certificações (Novos Certificados)
+const cursosData = [
+  {
+    icon: "lucide:book-open",
+    title: "ENAF - 4º Congresso Brasileiro de Musculação",
+    date: "Maio 2025",
+    topics: [
+      "Estudo da amplitude de movimento na musculação",
+      "Métodos de intensificação (MX10) e exercícios com/sem falha",
+      "Shape feminino, benefícios do treinamento recorrente",
+      "Periodização de treino de força",
+    ],
+  },
+  {
+    icon: "lucide:book-open",
+    title: "Treinamento e Recursos Ergogênicos no Esporte",
+    date: "Março 2026",
+    topics: [
+      "Variáveis e métodos de treinamento avançados",
+      "Dieta e nutrição voltada para esporte de alto rendimento",
+      "Aplicações estratégicas de recursos ergogênicos",
+      "Posicionamento, tráfego pago e marketing para personais",
+    ],
   },
 ];
 

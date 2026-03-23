@@ -1,6 +1,6 @@
 /// <reference types="@nuxt/eslint" />
-/// <reference types="@nuxt/image" />
 /// <reference types="@nuxt/icon" />
+/// <reference types="@nuxt/image" />
 /// <reference types="@vueuse/nuxt" />
 /// <reference types="vue3-carousel-nuxt" />
 /// <reference types="@nuxt/devtools" />
