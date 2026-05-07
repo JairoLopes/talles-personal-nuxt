@@ -401,6 +401,16 @@ const cursosData = [
       "Posicionamento, tráfego pago e marketing para personais",
     ],
   },
+  {
+    icon: "lucide:book-open",
+    title: "Peptídeos e Esteroides - Alta Performance",
+    date: "Abril 2026",
+    topics: [
+      "Aplicações de peptídeos no esporte",
+      "Esteroides anabolizantes: mecanismos e protocolos",
+      "Estratégias avançadas para alta performance",
+    ],
+  },
 ];
 
 // Dados de experiência complementar
