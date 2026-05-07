@@ -1,11 +1,19 @@
+<!--
+  =====================================================================
+  FeedBack.vue - Seção de Depoimentos dos Alunos
+  Exibe um carrossel responsivo com feedbacks reais e estatísticas.
+  Refatorado para usar a mesma lógica e estilos de Conquistas.vue.
+  =====================================================================
+-->
 <template>
   <section
     id="feedback"
     class="section-style bg-gradient-to-b from-navBlack to-deepBlue overflow-hidden"
   >
     <div class="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-      <!-- Cabeçalho -->
+      <!-- ========== CABEÇALHO ========== -->
       <div class="text-center mb-12 md:mb-16">
+        <!-- Badge "DEPOIMENTOS REAIS" -->
         <div
           v-motion="animations.slideUp"
           class="inline-flex items-center gap-2 bg-gradient-to-r from-mainTheme/15 to-secondaryTheme/15 px-4 py-1.5 md:px-5 md:py-2 rounded-full mb-4 md:mb-6"
@@ -21,13 +29,12 @@
           </span>
         </div>
 
-        <h2
-          v-motion="animations.slideUp"
-          class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6"
-        >
+        <!-- Título da seção -->
+        <h2 v-motion="animations.slideUp" class="h2-style mb-6">
           Feedback dos Alunos
         </h2>
 
+        <!-- Descrição -->
         <p
           v-motion="animations.slideUp"
           class="text-white/70 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed mb-8 md:mb-12"
@@ -36,7 +43,7 @@
           transformação com a metodologia personalizada do Time TF.
         </p>
 
-        <!-- Estatísticas -->
+        <!-- Estatísticas (Satisfação, Avaliação, Suporte) -->
         <div
           v-motion="animations.scaleIn"
           class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-3xl mx-auto mb-12 md:mb-16"
@@ -58,10 +65,10 @@
         </div>
       </div>
 
-      <!-- Carousel de Depoimentos COM BREAKPOINTS RESPONSIVOS -->
+      <!-- ========== CARROSSEL DE DEPOIMENTOS (REFATORADO) ========== -->
       <div class="relative mb-16 md:mb-20">
-        <!-- Indicador de slide atual -->
-        <div class="flex justify-center mb-6">
+        <!-- Indicador de slide atual (preservado do layout original) -->
+        <div class="flex justify-center mb-8">
           <div
             class="inline-flex items-center gap-2 bg-navBlack/50 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10"
           >
@@ -79,128 +86,130 @@
           </div>
         </div>
 
-        <!-- Carousel -->
-        <div class="w-full overflow-hidden px-2">
-          <ClientOnly>
-            <Carousel
-              v-model="currentSlide"
-              :wrap-around="true"
-              :autoplay="5000"
-              :pause-autoplay-on-hover="true"
-              :transition="600"
-              :breakpoints="carouselBreakpoints"
-              class="feedback-slider"
-            >
-              <Slide v-for="(testimonial, index) in testimonials" :key="index">
-                <div class="px-2 sm:px-3">
+        <!--
+          ClientOnly evita problemas de SSR com a biblioteca do carrossel.
+          A configuração é gerada dinamicamente por uma computed (carouselConfig),
+          da mesma forma que em Conquistas.vue.
+        -->
+        <ClientOnly>
+          <Carousel
+            v-model="currentSlide"
+            v-bind="carouselConfig"
+            class="feedback-slider"
+          >
+            <!-- Cada depoimento é um Slide -->
+            <Slide v-for="(testimonial, index) in testimonials" :key="index">
+              <div class="px-2 sm:px-3">
+                <!-- Animação escalonada (stagger) para cada card -->
+                <div v-motion="testimonialStagger(index)" class="group h-full">
+                  <!-- Card do depoimento -->
                   <div
-                    v-motion="testimonialStagger(index)"
-                    class="group h-full"
+                    class="h-full bg-gradient-to-b from-navBlack/80 to-deepBlue/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 hover:border-mainTheme/30 transition-all duration-500 hover:shadow-xl md:hover:shadow-2xl hover:shadow-mainTheme/10 flex flex-col"
                   >
+                    <!-- Cabeçalho: autor + rating + badge de resultado -->
                     <div
-                      class="h-full bg-gradient-to-b from-navBlack/80 to-deepBlue/80 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8 hover:border-mainTheme/30 transition-all duration-500 hover:shadow-xl md:hover:shadow-2xl hover:shadow-mainTheme/10 flex flex-col"
+                      class="flex flex-col sm:flex-row sm:items-start justify-between mb-4 md:mb-6 gap-3"
                     >
-                      <!-- Cabeçalho do depoimento -->
+                      <!-- Avatar + nome + estrelas -->
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-mainTheme/20 to-mainTheme/10 border border-mainTheme/30 flex items-center justify-center flex-shrink-0"
+                        >
+                          <Icon
+                            name="lucide:quote"
+                            class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-mainTheme"
+                          />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div
+                            class="text-white font-bold text-sm sm:text-base md:text-lg truncate"
+                          >
+                            {{ testimonial.author }}
+                          </div>
+                          <!-- Estrelas de avaliação -->
+                          <div class="flex items-center gap-1 mt-1">
+                            <Icon
+                              v-for="i in 5"
+                              :key="i"
+                              name="lucide:star"
+                              :class="`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ${
+                                i <= testimonial.rating
+                                  ? 'text-secondaryTheme fill-secondaryTheme'
+                                  : 'text-white/30'
+                              }`"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Badge do resultado (ex: "3kg em 2 semanas") -->
                       <div
-                        class="flex flex-col sm:flex-row sm:items-start justify-between mb-4 md:mb-6 gap-3"
+                        class="self-start sm:self-center bg-gradient-to-r from-secondaryTheme/20 to-yellow-500/20 border border-secondaryTheme/30 rounded-full px-2 py-1 sm:px-3 sm:py-1"
                       >
-                        <div class="flex items-center gap-3">
-                          <div
-                            class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-mainTheme/20 to-mainTheme/10 border border-mainTheme/30 flex items-center justify-center flex-shrink-0"
-                          >
-                            <Icon
-                              name="lucide:quote"
-                              class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-mainTheme"
-                            />
-                          </div>
-                          <div class="flex-1 min-w-0">
-                            <div
-                              class="text-white font-bold text-sm sm:text-base md:text-lg truncate"
-                            >
-                              {{ testimonial.author }}
-                            </div>
-                            <div class="flex items-center gap-1 mt-1">
-                              <Icon
-                                v-for="i in 5"
-                                :key="i"
-                                name="lucide:star"
-                                :class="`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ${
-                                  i <= testimonial.rating
-                                    ? 'text-secondaryTheme fill-secondaryTheme'
-                                    : 'text-white/30'
-                                }`"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- Badge de resultado -->
-                        <div
-                          class="self-start sm:self-center bg-gradient-to-r from-secondaryTheme/20 to-yellow-500/20 border border-secondaryTheme/30 rounded-full px-2 py-1 sm:px-3 sm:py-1"
+                        <span
+                          class="text-secondaryTheme text-xs sm:text-sm font-medium truncate"
                         >
-                          <span
-                            class="text-secondaryTheme text-xs sm:text-sm font-medium truncate"
-                          >
-                            {{ testimonial.result }}
-                          </span>
-                        </div>
+                          {{ testimonial.result }}
+                        </span>
                       </div>
+                    </div>
 
-                      <!-- Texto do depoimento -->
-                      <div class="relative flex-grow">
-                        <div
-                          class="absolute -top-3 -left-3 text-4xl sm:text-5xl md:text-6xl text-mainTheme/20"
-                        >
-                          "
-                        </div>
-                        <p
-                          class="text-white/80 leading-relaxed text-sm sm:text-base md:text-lg relative z-10 line-clamp-5 md:line-clamp-6"
-                        >
-                          {{ testimonial.text }}
-                        </p>
-                        <div
-                          class="absolute -bottom-3 -right-3 text-4xl sm:text-5xl md:text-6xl text-mainTheme/20 rotate-180"
-                        >
-                          "
-                        </div>
+                    <!-- Corpo do depoimento (texto com aspas decorativas) -->
+                    <div class="relative flex-grow">
+                      <div
+                        class="absolute -top-3 -left-3 text-4xl sm:text-5xl md:text-6xl text-mainTheme/20"
+                      >
+                        "
                       </div>
+                      <p
+                        class="text-white/80 leading-relaxed text-sm sm:text-base md:text-lg relative z-10 line-clamp-5 md:line-clamp-6"
+                      >
+                        {{ testimonial.text }}
+                      </p>
+                      <div
+                        class="absolute -bottom-3 -right-3 text-4xl sm:text-5xl md:text-6xl text-mainTheme/20 rotate-180"
+                      >
+                        "
+                      </div>
+                    </div>
 
-                      <!-- Rodapé do depoimento -->
-                      <div class="mt-6 pt-4 md:pt-6 border-t border-white/10">
-                        <div class="flex items-center justify-between">
-                          <div
-                            class="flex items-center gap-2 text-white/60 text-xs sm:text-sm"
-                          >
-                            <Icon
-                              name="lucide:users"
-                              class="w-3 h-3 sm:w-4 sm:h-4"
-                            />
-                            <span class="truncate">Time TF Member</span>
-                          </div>
-                          <div class="text-white/40 text-xs sm:text-sm">
-                            ⭐⭐⭐⭐⭐
-                          </div>
+                    <!-- Rodapé do card -->
+                    <div class="mt-6 pt-4 md:pt-6 border-t border-white/10">
+                      <div class="flex items-center justify-between">
+                        <div
+                          class="flex items-center gap-2 text-white/60 text-xs sm:text-sm"
+                        >
+                          <Icon
+                            name="lucide:users"
+                            class="w-3 h-3 sm:w-4 sm:h-4"
+                          />
+                          <span class="truncate">Time TF Member</span>
+                        </div>
+                        <div class="text-white/40 text-xs sm:text-sm">
+                          ⭐⭐⭐⭐⭐
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Slide>
+              </div>
+            </Slide>
 
-              <template #addons>
-                <Navigation />
-                <Pagination />
-              </template>
-            </Carousel>
-          </ClientOnly>
-        </div>
+            <!-- Adicionais do carrossel: setas de navegação e pontos de paginação -->
+            <template #addons>
+              <Navigation />
+              <Pagination />
+            </template>
+          </Carousel>
+        </ClientOnly>
       </div>
 
-      <!-- Seção Time TF -->
+      <!-- ========== SEÇÃO "TIME TF - FAMÍLIA EM EVOLUÇÃO" ========== -->
       <div
         v-motion="animations.slideUp"
         class="relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl bg-gradient-to-r from-mainTheme/10 to-secondaryTheme/10 border border-white/10 p-6 md:p-8 lg:p-12 mb-12 md:mb-16"
       >
+        <!-- Elementos decorativos -->
         <div
           class="absolute top-0 right-0 w-32 h-32 md:w-64 md:h-64 bg-mainTheme/5 rounded-full -translate-y-16 translate-x-16 md:-translate-y-32 md:translate-x-32"
         ></div>
@@ -253,7 +262,7 @@
         </div>
       </div>
 
-      <!-- CTA Final -->
+      <!-- ========== CTA FINAL ========== -->
       <div v-motion="animations.slideUp" class="text-center">
         <h4
           class="text-lg sm:text-xl md:text-2xl font-bold text-white mb-3 md:mb-4"
@@ -292,15 +301,38 @@
 </template>
 
 <script setup lang="ts">
+// ========== IMPORTAÇÕES ==========
 import { animations, createStagger } from "~/utils/animations";
 
-// Criar stagger para os depoimentos
+// Cria um efeito stagger (animação em cascata) para os cards do carrossel.
+// Cada card recebe um delay incremental baseado no índice, criando uma entrada suave.
 const testimonialStagger = createStagger("slideUp", 100);
 
-// Estado para controlar o slide atual
+// ========== ESTADO REATIVO ==========
+
+/** Índice do slide atualmente ativo no carrossel (começa em 0). */
 const currentSlide = ref(0);
 
-// Depoimentos
+// ========== DADOS (STATS E DEPOIMENTOS) ==========
+
+/**
+ * Estatísticas exibidas acima do carrossel.
+ * Cada objeto contém um valor (string) e um label descritivo.
+ */
+const stats = [
+  { value: "100%", label: "Satisfação" },
+  { value: "5.0", label: "Avaliação Média" },
+  { value: "24/7", label: "Suporte" },
+];
+
+/**
+ * Lista de depoimentos dos alunos.
+ * Cada depoimento contém:
+ * - text: o depoimento em si
+ * - rating: número de estrelas (1 a 5)
+ * - author: nome do aluno
+ * - result: um resumo do resultado alcançado (exibido como badge)
+ */
 const testimonials = [
   {
     text: "Mano, o treino desse mês ta insano! Fiz o treino de costas ontem e hoje o de peito, só nesses primeiros já deeu pra sentir a intensidade bem maior e as mudanças no meu corpo também, esse ta sendo o melhor desse ano! Simbora pra cima.",
@@ -334,80 +366,81 @@ const testimonials = [
   },
 ];
 
-// Estatísticas de feedback
-const stats = [
-  { value: "100%", label: "Satisfação" },
-  { value: "5.0", label: "Avaliação Média" },
-  { value: "24/7", label: "Suporte" },
-];
+// ========== CONFIGURAÇÃO DINÂMICA DO CARROSSEL ==========
 
-// Breakpoints responsivos para o carousel de feedback
-const carouselBreakpoints = {
-  320: {
-    itemsToShow: 1,
-    snapAlign: "center",
+/**
+ * Gera a configuração do carrossel com base no número de depoimentos.
+ * Usa os mesmos princípios de Conquistas.vue:
+ * - 1.2 itens no mobile (para mostrar um pedaço do próximo)
+ * - 2 itens a partir de 640px
+ * - 3 itens a partir de 1024px
+ *
+ * O uso de `Math.min` impede que o carrossel tente mostrar mais itens do que existem.
+ */
+const carouselConfig = computed(() => ({
+  itemsToShow: 1.2, // Mostra 1 slide inteiro + 20% do próximo (efeito "peek")
+  wrapAround: true, // Loop infinito
+  autoplay: 4000, // Troca automática a cada 4 segundos
+  pauseAutoplayOnHover: true, // Pausa ao passar o mouse
+  transition: 600, // Duração da transição em ms
+  snapAlign: "center" as const, // Alinhamento central no mobile
+
+  // Breakpoints responsivos (igual a Conquistas.vue)
+  breakpoints: {
+    640: {
+      itemsToShow: Math.min(2, testimonials.length), // Máximo 2 itens
+      snapAlign: "start" as const,
+    },
+    1024: {
+      itemsToShow: Math.min(3, testimonials.length), // Máximo 3 itens
+      snapAlign: "start" as const,
+    },
   },
-  640: {
-    itemsToShow: 1.2,
-    snapAlign: "start",
-  },
-  768: {
-    itemsToShow: 2,
-    snapAlign: "center",
-  },
-  1024: {
-    itemsToShow: 3,
-    snapAlign: "start",
-  },
-};
+}));
 </script>
 
 <style scoped>
-/* Estilos responsivos para o carousel */
-:deep(.carousel__slide) {
-  padding: 10px;
+/* 
+  ========== ESTILOS DO CARROSSEL ==========
+  Consistente com a estilização de Conquistas.vue.
+  Usa `:deep()` para alcançar elementos internos do componente Carousel.
+*/
+
+/* Botões de navegação (setas) */
+:deep(.carousel__prev),
+:deep(.carousel__next) {
+  background-color: var(--color-mainTheme, #1e90ff);
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 -10px;
+  transition: all 0.3s ease;
 }
 
+:deep(.carousel__prev:hover),
+:deep(.carousel__next:hover) {
+  transform: scale(1.15);
+  background-color: white;
+  color: black;
+}
+
+/* Pontos de paginação (bolinhas) */
 :deep(.carousel__pagination-button::after) {
   background-color: rgba(255, 255, 255, 0.3);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 :deep(.carousel__pagination-button--active::after) {
-  background-color: var(--color-mainTheme);
+  background-color: var(--color-mainTheme, #1e90ff);
+  width: 25px;
+  border-radius: 10px;
 }
 
-/* Ajustes responsivos para o carousel de feedback */
-@media (max-width: 640px) {
-  :deep(.feedback-slider .carousel__slide) {
-    min-width: calc(85% - 20px);
-  }
-
-  :deep(.carousel__viewport) {
-    overflow: visible;
-  }
-}
-
-@media (max-width: 768px) {
-  :deep(.feedback-slider .carousel__slide) {
-    min-width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 1024px) {
-  :deep(.feedback-slider .carousel__slide) {
-    min-width: calc(33.333% - 20px);
-  }
-}
-
-/* Ajuste para centralização em telas pequenas */
-@media (max-width: 640px) {
-  :deep(.carousel) {
-    padding: 0 20px;
-  }
-
-  :deep(.carousel__slide) {
-    display: flex;
-    justify-content: center;
-  }
+/* Ajuste para evitar conflitos de overflow no slide */
+.feedback-slider :deep(.carousel__slide) {
+  padding: 10px 0;
 }
 </style>
