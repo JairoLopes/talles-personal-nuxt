@@ -5,21 +5,21 @@
 
     <Home />
 
-    <HydrationFormacao :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationFormacao :hydrate-on-visible="{ rootMargin: '600px' }" />
 
-    <HydrationBeneficios :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationBeneficios :hydrate-on-visible="{ rootMargin: '600px' }" />
 
-    <HydrationPlanos :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationPlanos :hydrate-on-visible="{ rootMargin: '600px' }" />
 
-    <HydrationResultados :hydrate-on-visible="{ rootMargin: '1200px' }" />
+    <HydrationResultados :hydrate-on-visible="{ rootMargin: '1800px' }" />
 
-    <HydrationConquistas :hydrate-on-visible="{ rootMargin: '1200px' }" />
+    <HydrationConquistas :hydrate-on-visible="{ rootMargin: '1800px' }" />
 
-    <HydrationFeedBack :hydrate-on-visible="{ rootMargin: '1200px' }" />
+    <HydrationFeedBack :hydrate-on-visible="{ rootMargin: '1800px' }" />
 
-    <HydrationTimeTf :hydrate-on-visible="{ rootMargin: '1200px' }" />
+    <HydrationTimeTf :hydrate-on-visible="{ rootMargin: '1800px' }" />
 
-    <HydrationFooter :hydrate-on-visible="{ rootMargin: '200px' }" />
+    <HydrationFooter :hydrate-on-visible="{ rootMargin: '600px' }" />
 
     <ArrowTop />
   </div>
