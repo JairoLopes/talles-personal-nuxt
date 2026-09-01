@@ -201,7 +201,7 @@
 </template>
 
 <script setup lang="ts">
-import { animations, createStagger } from "~/utils/animations";
+import { animations } from "~/utils/animations";
 
 // Dados dos planos atualizados
 const planosData = [
@@ -240,11 +240,11 @@ const planosData = [
   },
   {
     plano: "Semestral",
-    valor: 499.99,
+    valor: 550,
     tipoPlano: "Plano promocional",
     dieta: true,
     popular: true,
-    desconto: "Clique e ganhe desconto exclusivo",
+    desconto: "Garanta já sua vaga",
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",
@@ -257,11 +257,11 @@ const planosData = [
   },
   {
     plano: "Anual",
-    valor: 800.0,
+    valor: 900.0,
     tipoPlano: "Plano promocional",
     dieta: true,
-    popular: false,
-    desconto: null,
+    popular: true,
+    desconto: "Garanta já sua vaga!",
     beneficios: [
       "Treino personalizado",
       "Dieta inclusa",

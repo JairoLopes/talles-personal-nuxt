@@ -1,0 +1,1 @@
+export { default } from "file:///var/home/lopes/Documentos/GitHub/talles-personal-nuxt/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs"

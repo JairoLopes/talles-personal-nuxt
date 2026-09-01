@@ -221,7 +221,7 @@ const carouselAlunosConfig = {
     640: { itemsToShow: 2.5, snapAlign: "start" },
     1024: { itemsToShow: 4, snapAlign: "start" },
   },
-};
+} as const;
 
 // Configuração do Carousel "Meus Resultados" (Destaque)
 const carouselMeusResultadosConfig = {
@@ -233,12 +233,16 @@ const carouselMeusResultadosConfig = {
     768: { itemsToShow: 2 },
     1024: { itemsToShow: 3 },
   },
-};
+} as const;
 
 const alunosData = [
+  { path: "/img/img_Resultado_Alunos/Aluno2026_2.jpeg" },
   { path: "/img/img_Resultado_Alunos/first.jpeg" },
+  { path: "/img/img_Resultado_Alunos/Aluno2026_1.jpeg" },
   { path: "/img/img_Resultado_Alunos/lastAlunoVerso.jpeg" },
+  { path: "/img/img_Resultado_Alunos/Aluno2026_3.jpeg" },
   { path: "/img/img_Resultado_Alunos/lastAlunoFrente.jpeg" },
+  { path: "/img/img_Resultado_Alunos/Aluno2026_4.jpeg" },
   { path: "/img/img_Resultado_Alunos/felipe.png" },
   { path: "/img/img_Resultado_Alunos/tai.jpeg" },
   { path: "/img/img_Resultado_Alunos/barbara.jpeg" },

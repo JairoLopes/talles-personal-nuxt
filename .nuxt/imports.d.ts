@@ -34,3 +34,4 @@ export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { animations, createStagger, staggerAnimations, AnimationName } from '../app/utils/animations';
 export { reactiveStyle, reactiveTransform, useElementStyle, useElementTransform, useMotion, useMotionControls, useMotionProperties, useMotions, useMotionTransitions, useMotionVariants, useSpring, useReducedMotion } from '../node_modules/@vueuse/motion/dist/nuxt/runtime/composables/index';
 export { useImage } from '../node_modules/@nuxt/image/dist/runtime/composables';
+export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

@@ -2,7 +2,7 @@
 /// <reference path="nitro-layouts.d.ts" />
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="/home/jairo-lopes/Documentos/GitHub/talles-personal-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="/var/home/lopes/Documentos/GitHub/talles-personal-nuxt/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="../image/providers.d.ts" />
 /// <reference path="nitro-middleware.d.ts" />
 
