@@ -236,6 +236,7 @@ const carouselMeusResultadosConfig = {
 } as const;
 
 const alunosData = [
+  { path: "/img/img_Resultado_Alunos/Aluno2026_5.jpeg" },
   { path: "/img/img_Resultado_Alunos/Aluno2026_2.jpeg" },
   { path: "/img/img_Resultado_Alunos/first.jpeg" },
   { path: "/img/img_Resultado_Alunos/Aluno2026_1.jpeg" },
