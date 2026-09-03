@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "npx browserslist@latest --update-db"
   },
   "dependencies": {
     "embla-carousel-react": "^8.6.0",
@@ -28,5 +29,8 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "caniuse-lite": "latest"
   }
 }
