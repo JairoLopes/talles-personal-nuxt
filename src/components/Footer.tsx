@@ -161,10 +161,10 @@ export default function Footer() {
                     </a>
                   </div>
                   <p className="mt-2 text-sm text-white/60">
-                    Desenvolvedor Front-end, especialista em
+                    Desenvolvedor web, especialista em
                     <span className="font-semibold text-emerald-600">
                       {" "}
-                      Vue.js
+                      Next.js/ React
                     </span>
                   </p>
                 </div>
