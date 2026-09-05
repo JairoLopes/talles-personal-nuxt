@@ -152,7 +152,7 @@ export default function Footer() {
                   <div className="flex items-center gap-2">
                     <FiHeart className="fill-secondaryTheme text-secondaryTheme h-4 w-4" />
                     <a
-                      href="https://jairolopes-dev.vercel.app/"
+                      href="https://jairo-lopes.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="gradient-text inline-block text-lg font-bold transition-transform hover:scale-105"
@@ -162,7 +162,7 @@ export default function Footer() {
                   </div>
                   <p className="mt-2 text-sm text-white/60">
                     Desenvolvedor web, especialista em
-                    <span className="font-semibold text-emerald-600">
+                    <span className="font-semibold text-sky-500">
                       {" "}
                       Next.js/ React
                     </span>
@@ -170,10 +170,10 @@ export default function Footer() {
                 </div>
               </div>
               <a
-                href="https://jairolopes-dev.vercel.app/"
+                href="https://jairo-lopes.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group from-mainTheme hover:to-mainTheme flex items-center gap-3 rounded-lg bg-gradient-to-r to-blue-600 px-6 py-3 font-bold text-white transition-all duration-300 hover:from-blue-500"
+                className="group from-mainTheme hover:to-mainTheme flex items-center gap-3 rounded-lg bg-linear-to-r to-blue-600 px-6 py-3 font-bold text-white transition-all duration-300 hover:from-blue-500"
               >
                 <span>Ver Portfólio</span>
                 <FiExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
