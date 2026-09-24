@@ -44,7 +44,7 @@ export default function Page() {
   return (
     <div
       id="page-scroll"
-      className="bg-deepBlue h-full snap-y snap-proximity overflow-y-auto overscroll-y-contain"
+      className="bg-deepBlue h-full w-full min-w-0 snap-y snap-proximity overflow-x-hidden overflow-y-auto overscroll-x-none overscroll-y-contain"
     >
       {/*
        * Cada seção externa possui um ID único.

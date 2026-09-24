@@ -1,8 +1,67 @@
 @import "tailwindcss";
 
-html {
-  scroll-behavior: smooth;
+/* =========================================================
+   CONFIGURAÇÃO GLOBAL
+   ========================================================= */
+
+/*
+ * Mantém a rolagem suave apenas quando o usuário
+ * não solicitou redução de movimento.
+ *
+ * Além de ser mais acessível, evita forçar animação
+ * de scroll em usuários que preferem menos movimento.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
+
+/*
+ * Evita que qualquer elemento da aplicação crie
+ * overflow horizontal no documento.
+ *
+ * `clip` é preferível a `hidden` para este caso porque
+ * não transforma o elemento em um novo scroll container.
+ *
+ * O `hidden` fica como fallback para navegadores antigos.
+ */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/*
+ * Impede overscroll horizontal e vertical no documento.
+ *
+ * O objetivo aqui não é impedir a rolagem normal,
+ * mas evitar que o viewport tente "puxar" além dos limites.
+ */
+html {
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+
+  /*
+   * Fallback sólido para evitar qualquer área transparente
+   * caso o viewport exponha uma região fora do conteúdo.
+   */
+  background-color: #0d0c0c;
+
+  /*
+   * Informa ao navegador que a interface utiliza
+   * um esquema de cores escuro.
+   */
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+}
+
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
 
 @theme inline {
   --color-mainTheme: #1e90ff;
@@ -12,115 +71,286 @@ html {
   --color-navBlack: #000;
 }
 
-/* Classes personalizadas */
+/* =========================================================
+   CLASSES PERSONALIZADAS
+   ========================================================= */
+
+/*
+ * Texto com gradiente azul.
+ */
 .gradient-text {
   @apply via-mainTheme bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent;
 }
 
+/*
+ * Texto com gradiente claro.
+ */
 .gradient-text2 {
   @apply from-myWhite/90 to-myWhite/95 bg-gradient-to-r bg-clip-text text-transparent;
 }
 
+/*
+ * Estrutura padrão das seções.
+ */
 .section-style {
   @apply flex min-h-screen justify-center pt-[10%] pb-20;
 }
 
+/*
+ * Título de seção.
+ */
 .h2-style {
   @apply mb-8 text-center text-3xl font-bold lg:text-4xl;
 }
 
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+/*
+ * Botão principal com efeito de preenchimento diagonal.
+ *
+ * A transição é limitada às propriedades que realmente
+ * sofrem alteração.
+ */
 .btn-hover {
-  @apply bg-mainTheme border-mainTheme before:bg-deepBlue hover:shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg transition transition-shadow duration-1000 before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45 before:duration-1000 hover:text-white hover:shadow-lg hover:before:h-64 hover:before:-translate-y-32 active:scale-95;
+  @apply border-mainTheme bg-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
+  @apply before:bg-deepBlue before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45;
+  @apply hover:text-white hover:shadow-lg active:scale-95;
+
+  /*
+   * Evita `transition: all`, reduzindo o conjunto de
+   * propriedades monitoradas pelo sistema de transição.
+   */
+  transition:
+    background-color 1000ms,
+    border-color 1000ms,
+    color 1000ms,
+    box-shadow 1000ms,
+    transform 1000ms;
 }
 
+/*
+ * Transição do pseudo-elemento.
+ *
+ * É importante declarar isso no próprio pseudo-elemento,
+ * pois propriedades de transition não são herdadas.
+ */
+.btn-hover::before {
+  transition:
+    height 1000ms,
+    transform 1000ms;
+}
+
+.btn-hover:hover::before {
+  height: 16rem;
+  transform: translate(-5rem, -8rem) rotate(45deg);
+}
+
+/*
+ * Botão secundário com efeito diagonal.
+ */
 .btn-hover2 {
-  @apply bg-deepBlue border-mainTheme before:bg-mainTheme shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg transition transition-shadow duration-1000 before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45 before:duration-1000 hover:shadow-none hover:before:h-64 hover:before:-translate-y-32 active:scale-95;
+  @apply border-mainTheme bg-deepBlue shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
+  @apply before:bg-mainTheme before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45;
+  @apply hover:shadow-none active:scale-95;
+
+  transition:
+    background-color 1000ms,
+    border-color 1000ms,
+    color 1000ms,
+    box-shadow 1000ms,
+    transform 1000ms;
 }
 
+.btn-hover2::before {
+  transition:
+    height 1000ms,
+    transform 1000ms;
+}
+
+.btn-hover2:hover::before {
+  height: 16rem;
+  transform: translate(-5rem, -8rem) rotate(45deg);
+}
+
+/*
+ * Botão de envio.
+ *
+ * Originalmente usava `transition-all`.
+ * Agora apenas propriedades realmente utilizadas
+ * pelo hover são acompanhadas.
+ */
 .btn-submit {
-  @apply bg-deepBlue border-mainTheme shadow-mainTheme hover:shadow-secondaryTheme hover:border-secondaryTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg transition transition-all duration-600 hover:-translate-y-1;
+  @apply border-mainTheme bg-deepBlue shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
+  @apply hover:border-secondaryTheme hover:shadow-secondaryTheme hover:-translate-y-1;
+
+  transition:
+    border-color 600ms,
+    box-shadow 600ms,
+    transform 600ms;
 }
 
-/* Animações customizadas (compatíveis com Tailwind v4) */
+/* =========================================================
+   ANIMAÇÕES CUSTOMIZADAS
+   ========================================================= */
+
+/*
+ * Animação de carregamento.
+ *
+ * Apenas transform é animado, evitando alterações
+ * de layout durante a animação.
+ */
 @keyframes loading {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(250%);
   }
 }
 
+/*
+ * Piscar apenas controla opacity.
+ */
 @keyframes blink {
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
 }
 
+/*
+ * Rotação com pausa no final do ciclo.
+ *
+ * Os 20% finais permanecem em 360deg para preservar
+ * o comportamento de "giro + pausa" original.
+ */
 @keyframes calm-spin {
   0% {
     transform: rotate(0deg);
   }
+
   80% {
     transform: rotate(360deg);
   }
-  90% {
-    transform: rotate(360deg);
-  }
+
   100% {
     transform: rotate(360deg);
   }
 }
 
+/*
+ * Balanço lateral.
+ */
 @keyframes balanco {
   0%,
   100% {
     transform: rotate(-3deg);
   }
+
   50% {
     transform: rotate(3deg);
   }
 }
 
+/*
+ * Rotação contínua lenta.
+ */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
+/* =========================================================
+   CLASSES DE ANIMAÇÃO
+   ========================================================= */
+
 .animate-loading {
   animation: loading 0.8s ease-in-out infinite;
 }
+
 .animate-blink {
   animation: blink 0.8s step-end infinite;
 }
+
 .animate-calmSpin {
   animation: calm-spin 1.5s ease-in-out infinite;
 }
+
 .animate-balanco {
   animation: balanco 1.5s ease-in-out infinite;
 }
+
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
 }
 
-/* Texto rotativo */
+/* =========================================================
+   TEXTO ROTATIVO
+   ========================================================= */
+
+/*
+ * `transition: all` foi substituído por apenas
+ * opacity e transform, que são as propriedades realmente
+ * utilizadas pelas classes abaixo.
+ */
 .text-rotate-enter-active,
 .text-rotate-leave-active {
-  transition: all 0.5s;
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
 }
+
 .text-rotate-enter-from {
   opacity: 0;
   transform: translateY(20px);
 }
+
 .text-rotate-leave-to {
   opacity: 0;
   transform: translateY(-20px);
+}
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+/*
+ * Respeita a preferência do sistema operacional.
+ *
+ * Em vez de simplesmente retirar toda a estilização,
+ * interrompemos apenas as animações não essenciais.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .animate-loading,
+  .animate-blink,
+  .animate-calmSpin,
+  .animate-balanco,
+  .animate-spin-slow {
+    animation: none;
+  }
+
+  .text-rotate-enter-active,
+  .text-rotate-leave-active {
+    transition: none;
+  }
+
+  .btn-hover,
+  .btn-hover2,
+  .btn-submit,
+  .btn-hover::before,
+  .btn-hover2::before {
+    transition: none;
+  }
 }
