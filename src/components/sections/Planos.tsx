@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-import { slideUp, scaleIn } from "@/components/animatedComponents/variants";
-import TitleAnimated from "./animatedComponents/TitleAnimated";
 import { FiCheckCircle, FiTag } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -114,57 +109,50 @@ export default function Planos() {
   ];
 
   return (
-    <section className="section-style bg-cover bg-fixed bg-no-repeat lg:bg-[linear-gradient(to_right,rgb(13,12,12,0.97),rgb(13,12,12,0.9)),url('/img/img_Plans/plans_bg.jpg')]">
+    <section className="section-style">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <TitleAnimated>Planos</TitleAnimated>
+        <h1 className="text-myWhite my-7 text-center text-3xl font-semibold">
+          Planos
+        </h1>
 
         <div className="mb-10 flex flex-col items-center justify-center gap-2 text-center">
-          <motion.h3
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="gradient-text text-xl font-bold md:text-2xl"
-          >
+          <h3 className="gradient-text text-xl font-bold md:text-2xl">
             Escolha o plano ideal para sua jornada
-          </motion.h3>
-          <motion.p
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-myWhite/70 mx-auto max-w-2xl text-sm md:text-base"
-          >
+          </h3>
+          <p className="text-myWhite/70 mx-auto max-w-2xl text-sm md:text-base">
             Todos os planos incluem dieta personalizada e suporte completo para
             você alcançar seus objetivos.
-          </motion.p>
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {planosData.map((plano, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={scaleIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`from-navBlack/90 to-deepBlue/90 relative flex h-full flex-col rounded-2xl border bg-gradient-to-b ${
+              className={`relative flex h-full flex-col rounded-2xl border bg-gradient-to-b transition-all duration-300 hover:scale-[1.02] ${
                 plano.popular
-                  ? "border-secondaryTheme/50 shadow-secondaryTheme/10 shadow-xl"
-                  : "border-white/10"
-              } hover:shadow-mainTheme/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl`}
+                  ? "from-mainTheme/10 via-navBlack/90 to-deepBlue/95 border-secondaryTheme shadow-[0_0_30px_rgba(250,204,21,0.18)] hover:shadow-[0_0_36px_rgba(250,204,21,0.28)]"
+                  : "from-navBlack/90 to-deepBlue/90 hover:shadow-mainTheme/10 border-white/10 hover:shadow-2xl"
+              }`}
             >
+              {/* Halo e tipografia fechada destacam a badge do restante da grade. */}
               {plano.popular && (
-                <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 transform">
-                  <span className="from-secondaryTheme text-deepBlue rounded-full bg-gradient-to-r to-yellow-500 px-5 py-1.5 text-sm font-bold shadow-lg">
+                <div className="absolute -top-3 left-1/2 z-10 w-max -translate-x-1/2 transform">
+                  <span className="via-secondaryTheme to-mainTheme text-deepBlue ring-deepBlue/30 rounded-full bg-gradient-to-r from-yellow-200 px-4 py-2 text-[11px] font-black tracking-[0.14em] whitespace-nowrap uppercase shadow-[0_0_24px_rgba(250,204,21,0.45)] ring-2 xl:px-6 xl:text-xs xl:tracking-[0.18em]">
                     MAIS POPULAR
                   </span>
                 </div>
               )}
               {plano.dieta && (
                 <div className="absolute -top-2 -right-2 z-10">
-                  <span className="from-mainTheme rounded-lg bg-gradient-to-r to-blue-600 px-3 py-1 text-xs font-bold text-white shadow-lg">
+                  {/* No plano popular a badge de dieta vira outline para não competir com o destaque principal. */}
+                  <span
+                    className={`rounded-lg px-3 py-1 text-xs font-bold ${
+                      plano.popular
+                        ? "border-mainTheme/50 bg-deepBlue/80 text-mainTheme border backdrop-blur-sm"
+                        : "from-secondaryTheme to-mainTheme text-deepBlue bg-gradient-to-r shadow-lg"
+                    }`}
+                  >
                     + DIETA
                   </span>
                 </div>
@@ -231,8 +219,8 @@ export default function Planos() {
                   rel="noopener noreferrer"
                   className={`block w-full rounded-xl py-3.5 text-center font-bold transition-all duration-300 ${
                     plano.popular
-                      ? "from-secondaryTheme hover:to-secondaryTheme text-deepBlue bg-gradient-to-r to-yellow-600 hover:from-yellow-500"
-                      : "from-mainTheme hover:to-mainTheme bg-gradient-to-r to-blue-600 text-white hover:from-blue-500"
+                      ? "from-secondaryTheme hover:to-secondaryTheme text-deepBlue shadow-secondaryTheme/30 bg-gradient-to-r to-yellow-500 shadow-lg hover:from-yellow-300"
+                      : "border-mainTheme/60 text-secondaryTheme hover:border-secondaryTheme hover:bg-secondaryTheme hover:text-deepBlue border bg-transparent"
                   } active:scale-95`}
                 >
                   ASSINAR AGORA
@@ -249,28 +237,22 @@ export default function Planos() {
               <div
                 className={`absolute top-0 right-0 h-16 w-16 rounded-tr-2xl border-t-2 border-r-2 ${
                   plano.popular
-                    ? "border-secondaryTheme/30"
+                    ? "border-secondaryTheme/60"
                     : "border-mainTheme/30"
                 }`}
               />
               <div
                 className={`absolute bottom-0 left-0 h-16 w-16 rounded-bl-2xl border-b-2 border-l-2 ${
                   plano.popular
-                    ? "border-secondaryTheme/30"
+                    ? "border-secondaryTheme/60"
                     : "border-mainTheme/30"
                 }`}
               />
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-12 border-t border-white/10 pt-8"
-        >
+        <div className="mt-12 border-t border-white/10 pt-8">
           <div className="text-center">
             <h4 className="mb-3 font-semibold text-white">
               Dúvidas ou precisa de um plano personalizado?
@@ -289,7 +271,7 @@ export default function Planos() {
               FALE DIRETAMENTE COMIGO
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

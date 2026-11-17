@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-import { slideUp } from "@/components/animatedComponents/variants";
 import Image from "next/image";
 import {
   FiInstagram,
@@ -15,7 +11,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="from-navBlack to-deepBlue border-t border-white/10 bg-gradient-to-b">
+    <footer className="border-t border-white/10 bg-transparent">
       <div className="mx-auto flex max-w-7xl flex-col px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         {/* Grid principal */}
         <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
@@ -130,13 +126,7 @@ export default function Footer() {
         <div className="my-8 h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
         {/* Desenvolvedor */}
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="from-mainTheme/10 via-mainTheme/5 relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r to-transparent p-6 md:p-8"
-        >
+        <div className="from-mainTheme/10 via-mainTheme/5 relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r to-transparent p-6 md:p-8">
           <div className="bg-mainTheme/5 absolute top-0 right-0 h-32 w-32 translate-x-16 -translate-y-16 rounded-full" />
           <div className="bg-secondaryTheme/5 absolute bottom-0 left-0 h-32 w-32 -translate-x-16 translate-y-16 rounded-full" />
           <div className="relative z-10">
@@ -162,7 +152,7 @@ export default function Footer() {
                   </div>
                   <p className="mt-2 text-sm text-white/60">
                     Desenvolvedor web, especialista em
-                    <span className="font-semibold text-sky-500">
+                    <span className="text-secondaryTheme font-semibold">
                       {" "}
                       Next.js/ React
                     </span>
@@ -173,7 +163,7 @@ export default function Footer() {
                 href="https://jairo-lopes.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group from-mainTheme hover:to-mainTheme flex items-center gap-3 rounded-lg bg-linear-to-r to-blue-600 px-6 py-3 font-bold text-white transition-all duration-300 hover:from-blue-500"
+                className="group from-secondaryTheme hover:to-secondaryTheme to-mainTheme text-deepBlue flex items-center gap-3 rounded-lg bg-linear-to-r px-6 py-3 font-bold transition-all duration-300 hover:from-yellow-300"
               >
                 <span>Ver Portfólio</span>
                 <FiExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -186,7 +176,7 @@ export default function Footer() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         <div className="mt-8 border-t border-white/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">

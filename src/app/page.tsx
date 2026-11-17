@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import Home from "@/components/Home";
-import Sobre from "@/components/Sobre";
-import ArrowTop from "@/components/ArrowTop";
-import Footer from "@/components/Footer";
+import Home from "@/components/sections/Home";
+import Sobre from "@/components/sections/Sobre";
+import ArrowTop from "@/components/clients/navigation/ArrowTop";
+import Footer from "@/components/sections/Footer";
 
 /**
  * Componente simples reutilizado pelos imports dinâmicos.
@@ -16,35 +16,41 @@ const LoadingSection = () => (
 );
 
 // Mantemos lazy loading nas seções mais pesadas, como carrosséis e galerias.
-const Beneficios = dynamic(() => import("@/components/Beneficios"), {
+const Beneficios = dynamic(() => import("@/components/sections/Beneficios"), {
   loading: LoadingSection,
 });
 
-const Planos = dynamic(() => import("@/components/Planos"), {
+const Planos = dynamic(() => import("@/components/sections/Planos"), {
   loading: LoadingSection,
 });
 
-const Resultados = dynamic(() => import("@/components/Resultados"), {
+const Resultados = dynamic(() => import("@/components/sections/Resultados"), {
   loading: LoadingSection,
 });
 
-const Conquistas = dynamic(() => import("@/components/Conquistas"), {
+const Conquistas = dynamic(() => import("@/components/sections/Conquistas"), {
   loading: LoadingSection,
 });
 
-const FeedBack = dynamic(() => import("@/components/FeedBack"), {
+const FeedBack = dynamic(() => import("@/components/sections/FeedBack"), {
   loading: LoadingSection,
 });
 
-const TimeTF = dynamic(() => import("@/components/TimeTF"), {
+const TimeTF = dynamic(() => import("@/components/sections/TimeTF"), {
   loading: LoadingSection,
 });
 
 export default function Page() {
   return (
+    /*
+     * O gradiente global fica no <body>, que não é o container de rolagem.
+     * Assim ele permanece ancorado à viewport sem `background-attachment:
+     * fixed`, que obrigava o navegador a repintar o fundo a cada frame.
+     * As seções continuam transparentes para deixar o gradiente aparecer.
+     */
     <div
       id="page-scroll"
-      className="bg-deepBlue h-full w-full min-w-0 snap-y snap-proximity overflow-x-hidden overflow-y-auto overscroll-x-none overscroll-y-contain"
+      className="h-full w-full min-w-0 snap-y snap-proximity overflow-x-hidden overflow-y-auto overscroll-x-none overscroll-y-contain"
     >
       {/*
        * Cada seção externa possui um ID único.

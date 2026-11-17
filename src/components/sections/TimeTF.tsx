@@ -1,9 +1,4 @@
-"use client";
-
-import { motion } from "motion/react";
-import { slideUp, slideRight } from "@/components/animatedComponents/variants";
-import TitleAnimated from "./animatedComponents/TitleAnimated";
-import Carousel from "./carousel/Carousel";
+import Carousel from "@/components/clients/carousel/Carousel";
 import { FiHeart } from "react-icons/fi";
 
 export default function TimeTF() {
@@ -48,7 +43,7 @@ export default function TimeTF() {
   }));
 
   return (
-    <section className="from-deepBlue via-navBlack to-deepBlue relative overflow-hidden bg-gradient-to-b py-20">
+    <section className="relative overflow-hidden py-20">
       <div className="absolute inset-0 opacity-10">
         <div className="bg-mainTheme absolute top-1/4 left-1/4 h-64 w-64 rounded-full blur-3xl" />
         <div className="bg-secondaryTheme absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full blur-3xl" />
@@ -56,38 +51,22 @@ export default function TimeTF() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-12 text-center">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="from-mainTheme/15 to-secondaryTheme/15 mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-5 py-2"
-          >
+          <div className="from-mainTheme/15 to-secondaryTheme/15 mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-5 py-2">
             <FiHeart className="text-mainTheme h-5 w-5" />
             <span className="text-sm font-medium tracking-wider text-white/80">
               FAMÍLIA TF
             </span>
-          </motion.div>
-          <TitleAnimated>Nossa Comunidade</TitleAnimated>
-          <motion.p
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-white/70"
-          >
+          </div>
+          <h1 className="text-myWhite my-7 text-center text-3xl font-semibold">
+            Nossa Comunidade
+          </h1>
+          <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-white/70">
             Conheça alguns membros do Time TF que estão transformando suas vidas
             através da disciplina, dedicação e método comprovado.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div
-          variants={slideRight}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative mt-4 mb-16"
-        >
+        <div className="relative mt-4 mb-16">
           <Carousel
             slides={slides}
             options={{ loop: true, autoplay: true, delay: 3000 }}
@@ -96,15 +75,9 @@ export default function TimeTF() {
             imageAspectRatio="square"
             slideClassName="px-2"
           />
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mx-auto max-w-3xl text-center"
-        >
+        <div className="mx-auto max-w-3xl text-center">
           <div className="relative inline-block">
             <div className="from-mainTheme/20 to-secondaryTheme/20 absolute -inset-1 rounded-2xl bg-gradient-to-r blur-xl" />
             <p className="relative z-10 text-lg text-white/70">
@@ -113,7 +86,7 @@ export default function TimeTF() {
               si mesmo.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-import { slideUp, scaleIn } from "@/components/animatedComponents/variants";
-import TitleAnimated from "./animatedComponents/TitleAnimated";
 import {
   FiShield,
   FiClock,
@@ -100,8 +95,16 @@ export default function Beneficios() {
   ];
 
   const categorias = [
-    { id: "suporte", nome: "Suporte", cor: "from-blue-500/20 to-blue-600/20" },
-    { id: "treino", nome: "Treino", cor: "from-mainTheme/20 to-blue-600/20" },
+    {
+      id: "suporte",
+      nome: "Suporte",
+      cor: "from-mainTheme/20 to-secondaryTheme/20",
+    },
+    {
+      id: "treino",
+      nome: "Treino",
+      cor: "from-mainTheme/20 to-secondaryTheme/20",
+    },
     {
       id: "acompanhamento",
       nome: "Acompanhamento",
@@ -126,7 +129,7 @@ export default function Beneficios() {
 
   const getCategoriaColor = (categoryId: string) => {
     const cat = categorias.find((c) => c.id === categoryId);
-    return cat?.cor || "from-mainTheme/20 to-blue-600/20";
+    return cat?.cor || "from-mainTheme/20 to-secondaryTheme/20";
   };
 
   const getCategoriaNome = (categoryId: string) => {
@@ -135,43 +138,27 @@ export default function Beneficios() {
   };
 
   return (
-    <section className="section-style from-deepBlue via-navBlack to-deepBlue bg-gradient-to-b">
+    <section className="section-style">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-16 text-center">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="from-mainTheme/15 to-secondaryTheme/15 mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-5 py-2"
-          >
+          <div className="from-mainTheme/15 to-secondaryTheme/15 mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-5 py-2">
             <FiShield className="text-mainTheme h-5 w-5" />
             <span className="text-sm font-medium tracking-wider text-white/80">
               VANTAGENS EXCLUSIVAS
             </span>
-          </motion.div>
+          </div>
 
-          <TitleAnimated>Benefícios do Time TF</TitleAnimated>
+          <h1 className="text-myWhite my-7 text-center text-3xl font-semibold">
+            Benefícios do Time TF
+          </h1>
 
-          <motion.p
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-white/70"
-          >
+          <p className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-white/70">
             Ao fazer parte do nosso time, você tem acesso a uma estrutura
             completa pensada para potencializar seus resultados e transformar
             sua jornada fitness.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={scaleIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="bg-navBlack/50 inline-flex items-center gap-4 rounded-2xl border border-white/10 px-8 py-4 backdrop-blur-sm"
-          >
+          <div className="bg-navBlack/50 inline-flex items-center gap-4 rounded-2xl border border-white/10 px-8 py-4 backdrop-blur-sm">
             <div className="gradient-text text-3xl font-bold">
               {beneficiosData.length}
             </div>
@@ -183,18 +170,13 @@ export default function Beneficios() {
                 Para você alcançar seus objetivos
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {beneficiosData.map((beneficio, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={scaleIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
               className="group from-navBlack/80 to-deepBlue/80 hover:border-mainTheme/30 relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br backdrop-blur-sm transition-all duration-500 hover:-translate-y-2"
             >
               <div
@@ -232,17 +214,11 @@ export default function Beneficios() {
                 </div>
               </div>
               <div className="from-mainTheme/0 via-mainTheme/0 to-mainTheme/0 group-hover:via-mainTheme/5 group-hover:to-mainTheme/10 pointer-events-none absolute inset-0 bg-gradient-to-br transition-all duration-500" />
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-20 border-t border-white/10 pt-12"
-        >
+        <div className="mt-20 border-t border-white/10 pt-12">
           <div className="mx-auto max-w-4xl">
             <div className="mb-10 text-center">
               <h3 className="mb-4 text-2xl font-bold text-white lg:text-3xl">
@@ -257,7 +233,7 @@ export default function Beneficios() {
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
                 href="#planos"
-                className="from-mainTheme hover:to-mainTheme inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r to-blue-600 px-8 py-4 font-bold text-white transition-all duration-300 hover:from-blue-500"
+                className="from-secondaryTheme hover:to-secondaryTheme to-mainTheme text-deepBlue inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r px-8 py-4 font-bold transition-all duration-300 hover:from-yellow-300"
               >
                 <span>Ver Planos Disponíveis</span>
               </a>
@@ -279,7 +255,7 @@ export default function Beneficios() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

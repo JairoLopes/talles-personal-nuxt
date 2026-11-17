@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
-import ClientLayout from "@/components/ClientLayout";
-import SectionObserver from "@/components/SectionObserver";
+import SiteLayout from "@/components/layout/SiteLayout";
+import SectionObserver from "@/components/clients/navigation/SectionObserver";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,8 +57,8 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="bg-deepBlue text-myWhite flex h-dvh min-h-full flex-col">
-        <ClientLayout>
+      <body className="bg-deepBlue bg-luxury text-myWhite flex h-dvh min-h-full flex-col">
+        <SiteLayout>
           {/*
            * O observer fica em um ponto global da aplicação.
            * Assim não precisamos colocar useSectionObserver manualmente em
@@ -66,7 +66,7 @@ export default function RootLayout({
            */}
           <SectionObserver />
           {children}
-        </ClientLayout>
+        </SiteLayout>
       </body>
     </html>
   );

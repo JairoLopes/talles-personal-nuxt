@@ -44,8 +44,11 @@ html {
   /*
    * Fallback sólido para evitar qualquer área transparente
    * caso o viewport exponha uma região fora do conteúdo.
+   *
+   * Usa o mesmo carvão do topo do gradiente global para que
+   * a transição com o conteúdo não revele outra cor.
    */
-  background-color: #0d0c0c;
+  background-color: #111215;
 
   /*
    * Informa ao navegador que a interface utiliza
@@ -63,12 +66,21 @@ body {
    TAILWIND THEME
    ========================================================= */
 
+/*
+ * Paleta "Dark Luxury".
+ *
+ * Os nomes `mainTheme`, `deepBlue` e `navBlack` são mantidos por
+ * compatibilidade com as classes já espalhadas pelos componentes, mas os
+ * valores agora seguem a nova identidade: dourado como protagonista,
+ * âmbar/bronze como suporte e carvão/chumbo nas superfícies escuras.
+ */
 @theme inline {
-  --color-mainTheme: #1e90ff;
-  --color-secondaryTheme: #ffcc00;
-  --color-myWhite: #e2e6e9;
-  --color-deepBlue: #0d0c0c;
-  --color-navBlack: #000;
+  --color-mainTheme: #c9a227;
+  --color-secondaryTheme: #facc15;
+  --color-myWhite: #f3f4f6;
+  --color-deepBlue: #111215;
+  --color-navBlack: #181b22;
+  --color-graphite: #222630;
 }
 
 /* =========================================================
@@ -76,10 +88,28 @@ body {
    ========================================================= */
 
 /*
- * Texto com gradiente azul.
+ * Fundo global da aplicação.
+ *
+ * O degradê fica no <body>, que não é o container de rolagem (#page-scroll).
+ * Por isso ele já permanece ancorado à viewport sem precisar de
+ * `background-attachment: fixed` — que, dentro de um elemento com overflow,
+ * obriga o navegador a repintar o fundo a cada frame de scroll.
+ */
+.bg-luxury {
+  background-image: linear-gradient(
+    180deg,
+    #0d0e11 0%,
+    #1a1d24 45%,
+    #2a303b 100%
+  );
+  background-repeat: no-repeat;
+}
+
+/*
+ * Texto com gradiente dourado.
  */
 .gradient-text {
-  @apply via-mainTheme bg-gradient-to-r from-sky-600 to-blue-600 bg-clip-text text-transparent;
+  @apply from-secondaryTheme to-mainTheme bg-gradient-to-r via-yellow-500 bg-clip-text text-transparent;
 }
 
 /*
@@ -91,9 +121,12 @@ body {
 
 /*
  * Estrutura padrão das seções.
+ *
+ * As seções não pintam mais fundo próprio: elas ficam transparentes para
+ * deixar o gradiente global (`body`/`#page-scroll`) aparecer de ponta a ponta.
  */
 .section-style {
-  @apply flex min-h-screen justify-center pt-[10%] pb-20;
+  @apply flex min-h-screen justify-center bg-transparent pt-[10%] pb-20;
 }
 
 /*
@@ -110,13 +143,13 @@ body {
 /*
  * Botão principal com efeito de preenchimento diagonal.
  *
- * A transição é limitada às propriedades que realmente
- * sofrem alteração.
+ * Base dourada com texto carvão garante contraste alto; no hover, o
+ * preenchimento escuro sobe na diagonal e o texto passa a dourado.
  */
 .btn-hover {
-  @apply border-mainTheme bg-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
+  @apply border-secondaryTheme bg-secondaryTheme text-deepBlue relative overflow-hidden rounded-sm border px-6 py-3 font-medium shadow-lg;
   @apply before:bg-deepBlue before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45;
-  @apply hover:text-white hover:shadow-lg active:scale-95;
+  @apply hover:text-secondaryTheme hover:shadow-lg active:scale-95;
 
   /*
    * Evita `transition: all`, reduzindo o conjunto de
@@ -149,11 +182,14 @@ body {
 
 /*
  * Botão secundário com efeito diagonal.
+ *
+ * Contorno bronze e preenchimento dourado no hover, mantendo o texto
+ * escuro quando o fundo claro predomina.
  */
 .btn-hover2 {
-  @apply border-mainTheme bg-deepBlue shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
-  @apply before:bg-mainTheme before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45;
-  @apply hover:shadow-none active:scale-95;
+  @apply border-mainTheme bg-deepBlue text-myWhite relative overflow-hidden rounded-sm border px-6 py-3 font-medium shadow-lg;
+  @apply before:bg-secondaryTheme before:absolute before:top-1/2 before:h-0 before:w-64 before:origin-center before:-translate-x-20 before:rotate-45;
+  @apply hover:text-deepBlue hover:shadow-none active:scale-95;
 
   transition:
     background-color 1000ms,
@@ -177,12 +213,11 @@ body {
 /*
  * Botão de envio.
  *
- * Originalmente usava `transition-all`.
- * Agora apenas propriedades realmente utilizadas
- * pelo hover são acompanhadas.
+ * Borda bronze em repouso e brilho dourado no hover. Apenas propriedades
+ * realmente utilizadas pelo hover são acompanhadas.
  */
 .btn-submit {
-  @apply border-mainTheme bg-deepBlue shadow-mainTheme relative overflow-hidden rounded-sm border px-6 py-3 font-medium text-white shadow-lg;
+  @apply border-mainTheme bg-deepBlue text-myWhite relative overflow-hidden rounded-sm border px-6 py-3 font-medium shadow-lg;
   @apply hover:border-secondaryTheme hover:shadow-secondaryTheme hover:-translate-y-1;
 
   transition:

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import { FiArrowUp } from "react-icons/fi";
 
 export default function ArrowTop() {
@@ -33,21 +32,14 @@ export default function ArrowTop() {
     }
   };
 
-  return (
-    <AnimatePresence>
-      {show && (
-        <motion.button
-          type="button"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          onClick={scrollToTop}
-          className="bg-mainTheme fixed right-4 bottom-24 z-50 rounded-full p-3 text-white shadow-lg transition-colors duration-300 hover:bg-blue-600 lg:bottom-4"
-          aria-label="Voltar ao topo"
-        >
-          <FiArrowUp className="h-6 w-6" />
-        </motion.button>
-      )}
-    </AnimatePresence>
-  );
+  return show ? (
+    <button
+      type="button"
+      onClick={scrollToTop}
+      className="bg-mainTheme text-deepBlue hover:bg-secondaryTheme fixed right-4 bottom-24 z-50 rounded-full p-3 shadow-lg transition-colors duration-300 lg:bottom-4"
+      aria-label="Voltar ao topo"
+    >
+      <FiArrowUp className="h-6 w-6" />
+    </button>
+  ) : null;
 }

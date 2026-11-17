@@ -1,13 +1,4 @@
-"use client";
-
-import { motion } from "motion/react";
-import {
-  slideUp,
-  slideRight,
-  slideLeft,
-} from "@/components/animatedComponents/variants";
-import TitleAnimated from "./animatedComponents/TitleAnimated";
-import Carousel from "./carousel/Carousel";
+import Carousel from "@/components/clients/carousel/Carousel";
 import { FiTrendingUp, FiUsers, FiStar } from "react-icons/fi";
 import { FaShieldAlt } from "react-icons/fa";
 
@@ -96,42 +87,26 @@ export default function Resultados() {
   ];
 
   return (
-    <section className="section-style bg-deepBlue">
+    <section className="section-style">
       <div className="mx-auto w-full max-w-7xl px-4">
         <div className="mb-12 text-center">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="from-mainTheme/15 to-secondaryTheme/15 mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-4 py-1.5"
-          >
+          <div className="from-mainTheme/15 to-secondaryTheme/15 mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-4 py-1.5">
             <FiTrendingUp className="text-mainTheme h-4 w-4" />
             <span className="text-sm font-medium text-white/80">
               RESULTADOS COMPROVADOS
             </span>
-          </motion.div>
-          <TitleAnimated>Transformações Reais</TitleAnimated>
-          <motion.p
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mx-auto max-w-3xl text-lg leading-relaxed text-white/70"
-          >
+          </div>
+          <h1 className="text-myWhite my-7 text-center text-3xl font-semibold">
+            Transformações Reais
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/70">
             Veja os resultados alcançados pelos meus alunos e pela aplicação
             consistente da minha metodologia.
-          </motion.p>
+          </p>
         </div>
 
         {/* Banner de chamada */}
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="from-mainTheme/10 to-secondaryTheme/10 relative mb-16 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r p-8"
-        >
+        <div className="from-mainTheme/10 to-secondaryTheme/10 relative mb-16 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-r p-8">
           <div className="relative z-10 flex flex-col items-center justify-between gap-6 lg:flex-row">
             <div className="lg:w-2/3">
               <h2 className="mb-3 flex items-center gap-3 text-2xl font-bold text-white lg:text-3xl">
@@ -151,17 +126,11 @@ export default function Resultados() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Carrossel Alunos */}
         <div className="mb-24">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-8 flex items-center justify-between"
-          >
+          <div className="mb-8 flex items-center justify-between">
             <div>
               <h2 className="mb-2 text-2xl font-bold text-white lg:text-3xl">
                 Resultados dos Alunos
@@ -170,13 +139,8 @@ export default function Resultados() {
                 Transformações reais alcançadas com dedicação e método
               </p>
             </div>
-          </motion.div>
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          </div>
+          <div>
             <Carousel
               slides={alunosSlides}
               options={{ loop: true, autoplay: true, delay: 3000 }}
@@ -184,18 +148,12 @@ export default function Resultados() {
               showDots
               imageAspectRatio="portrait"
             />
-          </motion.div>
+          </div>
         </div>
 
         {/* Meus Resultados */}
         <div className="rounded-3xl border border-white/5 bg-white/5 px-4 py-12 sm:px-8">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mb-12 text-center"
-          >
+          <div className="mb-12 text-center">
             <div className="bg-mainTheme/10 mb-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5">
               <FaShieldAlt className="text-mainTheme h-4 w-4" />
               <span className="text-mainTheme text-sm font-bold tracking-widest uppercase">
@@ -210,14 +168,9 @@ export default function Resultados() {
               mesmo sigo. A consistência na metodologia é o que garante o topo
               do pódio.
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={slideLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <div>
             <Carousel
               slides={meusResultadosSlides}
               options={{ loop: true, autoplay: true, delay: 4000 }}
@@ -226,15 +179,9 @@ export default function Resultados() {
               imageAspectRatio="portrait"
               slideClassName="py-4"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
-          >
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {stats.map((stat) => (
               <div
                 key={stat.label}
@@ -248,7 +195,7 @@ export default function Resultados() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

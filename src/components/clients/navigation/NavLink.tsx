@@ -1,9 +1,7 @@
 "use client";
 
-import type { ComponentType, MouseEvent, SVGProps } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { useActiveSectionStore } from "@/store/useActiveSectionStore";
-
-type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
 type Props = {
   href: string;
@@ -11,7 +9,7 @@ type Props = {
   sectionId: string;
   onClick?: () => void;
   className?: string;
-  icon?: IconComponent;
+  icon?: ReactNode;
 };
 
 export default function NavLink({
@@ -20,7 +18,7 @@ export default function NavLink({
   sectionId,
   onClick,
   className = "",
-  icon: Icon,
+  icon,
 }: Props) {
   const activeSection = useActiveSectionStore((state) => state.activeSection);
   const isActive = activeSection === sectionId;
@@ -50,13 +48,13 @@ export default function NavLink({
           ? "text-secondaryTheme font-bold underline decoration-2 underline-offset-4"
           : "text-gray-300 hover:text-white"
       } ${
-        Icon
+        icon
           ? "flex flex-col items-center justify-center gap-1 rounded-xl px-2 py-2 text-[10px] leading-none transition-colors duration-300"
           : "transition-colors duration-300"
       }`}
     >
-      {Icon && <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />}
-      <span className={Icon ? "whitespace-nowrap" : undefined}>{titulo}</span>
+      {icon}
+      <span className={icon ? "whitespace-nowrap" : undefined}>{titulo}</span>
     </a>
   );
 }

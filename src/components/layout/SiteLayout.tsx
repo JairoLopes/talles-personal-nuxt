@@ -1,9 +1,7 @@
-"use client";
+import Navbar from "@/components/layout/NavBar";
+import MobileMenu from "@/components/layout/MobileMenu";
 
-import Navbar from "@/components/NavBar";
-import MobileMenu from "./MobileMenu";
-
-export default function ClientLayout({
+export default function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

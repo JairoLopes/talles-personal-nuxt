@@ -1,5 +1,3 @@
-"use client";
-
 import {
   FiAward,
   FiHome,
@@ -10,7 +8,7 @@ import {
   FiUser,
   FiUsers,
 } from "react-icons/fi";
-import NavLink from "./NavLink";
+import NavLink from "@/components/clients/navigation/NavLink";
 
 /**
  * Navegação mobile em formato de bottom bar.
@@ -20,40 +18,60 @@ import NavLink from "./NavLink";
  */
 export default function MobileMenu() {
   const navLinks = [
-    { href: "#home", label: "Home", sectionId: "home", icon: FiHome },
-    { href: "#sobre", label: "Sobre", sectionId: "sobre", icon: FiUser },
+    {
+      href: "#home",
+      label: "Home",
+      sectionId: "home",
+      icon: <FiHome className="h-5 w-5 shrink-0" aria-hidden="true" />,
+    },
+    {
+      href: "#sobre",
+      label: "Sobre",
+      sectionId: "sobre",
+      icon: <FiUser className="h-5 w-5 shrink-0" aria-hidden="true" />,
+    },
     {
       href: "#beneficios",
       label: "Benefícios",
       sectionId: "beneficios",
-      icon: FiShield,
+      icon: <FiShield className="h-5 w-5 shrink-0" aria-hidden="true" />,
     },
-    { href: "#planos", label: "Planos", sectionId: "planos", icon: FiTag },
+    {
+      href: "#planos",
+      label: "Planos",
+      sectionId: "planos",
+      icon: <FiTag className="h-5 w-5 shrink-0" aria-hidden="true" />,
+    },
     {
       href: "#resultados",
       label: "Resultados",
       sectionId: "resultados",
-      icon: FiTrendingUp,
+      icon: <FiTrendingUp className="h-5 w-5 shrink-0" aria-hidden="true" />,
     },
     {
       href: "#conquistas",
       label: "Conquistas",
       sectionId: "conquistas",
-      icon: FiAward,
+      icon: <FiAward className="h-5 w-5 shrink-0" aria-hidden="true" />,
     },
     {
       href: "#feedback",
       label: "Feedback",
       sectionId: "feedback",
-      icon: FiMessageCircle,
+      icon: <FiMessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" />,
     },
-    { href: "#time", label: "Time", sectionId: "time", icon: FiUsers },
+    {
+      href: "#time",
+      label: "Time",
+      sectionId: "time",
+      icon: <FiUsers className="h-5 w-5 shrink-0" aria-hidden="true" />,
+    },
   ];
 
   return (
     <nav
       aria-label="Navegação mobile"
-      className="bg-navBlack/90 shadow-4xl fixed right-0 bottom-0 left-0 z-50 border border-white/10 p-4 pt-7 backdrop-blur-xl lg:hidden"
+      className="bg-navBlack/95 shadow-4xl fixed right-0 bottom-0 left-0 z-50 border border-white/10 p-4 pt-7 lg:hidden"
     >
       {/*
        * `overflow-x-auto` permite manter todos os destinos disponíveis sem

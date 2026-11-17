@@ -52,8 +52,11 @@ export default function Carousel({
 }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [isDocumentVisible, setIsDocumentVisible] = useState(true);
 
-  const autoplayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const autoplayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const mergedOptions: EmblaOptionsType = {
     loop: true,
@@ -67,25 +70,31 @@ export default function Carousel({
   /** Cancela qualquer avanço automático que esteja agendado. */
   const stopAutoplay = useCallback(() => {
     if (autoplayTimerRef.current) {
-      clearInterval(autoplayTimerRef.current);
+      clearTimeout(autoplayTimerRef.current);
       autoplayTimerRef.current = null;
     }
   }, []);
 
   /**
-   * Agenda somente UM próximo avanço.
+   * Agenda o próximo avanço e reagenda depois de cada troca.
    *
-   * Isso é preferível a `setInterval`, porque podemos cancelar e reiniciar o
-   * relógio facilmente quando o usuário começa a arrastar o carrossel.
+   * O `setTimeout` reencadeado substitui o `setInterval`: existe apenas um
+   * avanço pendente por vez e o ciclo pode ser cancelado sem deixar chamadas
+   * acumuladas.
    */
   const startAutoplay = useCallback(() => {
     if (!emblaApi || !options.autoplay) return;
 
     stopAutoplay();
 
-    autoplayTimerRef.current = setInterval(() => {
-      emblaApi.scrollNext();
-    }, options.delay ?? 4000);
+    const scheduleNext = () => {
+      autoplayTimerRef.current = setTimeout(() => {
+        emblaApi.scrollNext();
+        scheduleNext();
+      }, options.delay ?? 4000);
+    };
+
+    scheduleNext();
   }, [emblaApi, options.autoplay, options.delay, stopAutoplay]);
 
   /** Reinicia a contagem depois de uma interação manual. */
@@ -143,10 +152,6 @@ export default function Carousel({
     emblaApi.on("pointerDown", handlePointerDown);
     emblaApi.on("pointerUp", handlePointerUp);
 
-    if (options.autoplay) {
-      startAutoplay();
-    }
-
     return () => {
       emblaApi.off("select", onSelect);
       emblaApi.off("reInit", onSelect);
@@ -154,14 +159,78 @@ export default function Carousel({
       emblaApi.off("pointerUp", handlePointerUp);
       stopAutoplay();
     };
+  }, [emblaApi, onSelect, restartAutoplay, stopAutoplay]);
+
+  /**
+   * Observa a visibilidade do carrossel para não manter autoplay e vídeos
+   * ativos quando a seção está fora da tela. Com vários carrosséis na página,
+   * isso evita timers e decodificação de vídeo concorrendo em segundo plano.
+   */
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsCarouselVisible(entry.isIntersecting),
+      { threshold: 0 },
+    );
+
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsDocumentVisible(document.visibilityState === "visible");
+    };
+
+    handleVisibilityChange();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi || !options.autoplay) return;
+
+    if (isCarouselVisible && isDocumentVisible) {
+      startAutoplay();
+    } else {
+      stopAutoplay();
+    }
+
+    return () => stopAutoplay();
   }, [
     emblaApi,
-    onSelect,
     options.autoplay,
-    restartAutoplay,
+    isCarouselVisible,
+    isDocumentVisible,
     startAutoplay,
     stopAutoplay,
   ]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    if (!container) return;
+
+    const shouldPlay = isCarouselVisible && isDocumentVisible;
+
+    container.querySelectorAll("video").forEach((video) => {
+      if (!shouldPlay) {
+        video.pause();
+        return;
+      }
+
+      // O navegador pode bloquear o play() automático; nesse caso o vídeo
+      // permanece pausado, sem gerar erro na aplicação.
+      void video.play().catch(() => {});
+    });
+  }, [isCarouselVisible, isDocumentVisible, slides, children]);
 
   const aspectClass =
     imageAspectRatio === "square"
@@ -194,7 +263,7 @@ export default function Carousel({
             <video
               src={slide.src}
               className="h-full w-full object-cover"
-              autoPlay
+              preload="metadata"
               muted
               loop
               playsInline
@@ -214,7 +283,7 @@ export default function Carousel({
   const slideCount = React.Children.count(children) || slides.length;
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={containerRef} className={`relative ${className}`}>
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex touch-pan-y">{renderSlides()}</div>
       </div>

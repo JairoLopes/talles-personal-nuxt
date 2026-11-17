@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import NavLink from "@/components/NavLink";
+import NavLink from "@/components/clients/navigation/NavLink";
 
 /**
  * Navbar tradicional para telas grandes.
@@ -22,7 +20,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-navBlack fixed top-0 z-40 hidden w-full border-b border-white/10 backdrop-blur-lg lg:block">
+    <nav className="bg-navBlack fixed top-0 z-40 hidden w-full border-b border-white/10 lg:block">
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between gap-8">
           {/* Logo desktop */}

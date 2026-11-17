@@ -1,9 +1,4 @@
-"use client";
-
-import { motion } from "motion/react";
-import { slideUp, scaleIn } from "@/components/animatedComponents/variants";
-import TitleAnimated from "./animatedComponents/TitleAnimated";
-import Carousel from "./carousel/Carousel";
+import Carousel from "@/components/clients/carousel/Carousel";
 import {
   FiThumbsUp,
   FiMessageCircle,
@@ -54,42 +49,26 @@ export default function FeedBack() {
   ];
 
   return (
-    <section className="section-style from-navBlack to-deepBlue overflow-hidden bg-gradient-to-b">
+    <section className="section-style overflow-hidden">
       <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="mb-12 text-center md:mb-16">
-          <motion.div
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="from-mainTheme/15 to-secondaryTheme/15 mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-4 py-1.5 md:mb-6 md:px-5 md:py-2"
-          >
+          <div className="from-mainTheme/15 to-secondaryTheme/15 mb-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-4 py-1.5 md:mb-6 md:px-5 md:py-2">
             <FiThumbsUp className="text-mainTheme h-4 w-4 md:h-5 md:w-5" />
             <span className="text-xs font-medium tracking-wider text-white/80 md:text-sm">
               DEPOIMENTOS REAIS
             </span>
-          </motion.div>
+          </div>
 
-          <TitleAnimated>Feedback dos Alunos</TitleAnimated>
+          <h1 className="text-myWhite my-7 text-center text-3xl font-semibold">
+            Feedback dos Alunos
+          </h1>
 
-          <motion.p
-            variants={slideUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mx-auto mb-8 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base md:mb-12 md:text-lg"
-          >
+          <p className="mx-auto mb-8 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base md:mb-12 md:text-lg">
             Veja o que nossos alunos têm a dizer sobre a experiência de
             transformação com a metodologia personalizada do Time TF.
-          </motion.p>
+          </p>
 
-          <motion.div
-            variants={scaleIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="mx-auto mb-12 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:mb-16 md:gap-6"
-          >
+          <div className="mx-auto mb-12 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:mb-16 md:gap-6">
             {stats.map((stat, index) => (
               <div
                 key={index}
@@ -103,7 +82,7 @@ export default function FeedBack() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
         {/* Carrossel de depoimentos */}
@@ -189,13 +168,7 @@ export default function FeedBack() {
         </div>
 
         {/* Seção Time TF - Família em Evolução */}
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="from-mainTheme/10 to-secondaryTheme/10 relative mb-12 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r p-6 md:mb-16 md:rounded-2xl md:p-8 lg:rounded-3xl lg:p-12"
-        >
+        <div className="from-mainTheme/10 to-secondaryTheme/10 relative mb-12 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-r p-6 md:mb-16 md:rounded-2xl md:p-8 lg:rounded-3xl lg:p-12">
           <div className="bg-mainTheme/5 absolute top-0 right-0 h-32 w-32 translate-x-16 -translate-y-16 rounded-full md:h-64 md:w-64 md:translate-x-32 md:-translate-y-32" />
           <div className="bg-secondaryTheme/5 absolute bottom-0 left-0 h-32 w-32 -translate-x-16 translate-y-16 rounded-full md:h-64 md:w-64 md:-translate-x-32 md:translate-y-32" />
           <div className="relative z-10 text-center">
@@ -226,15 +199,9 @@ export default function FeedBack() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={slideUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center"
-        >
+        <div className="text-center">
           <h4 className="mb-3 text-lg font-bold text-white sm:text-xl md:mb-4 md:text-2xl">
             Sua História de Transformação Começa Aqui
           </h4>
@@ -246,7 +213,7 @@ export default function FeedBack() {
             <div className="to-mainTheme hidden h-0.5 w-16 bg-gradient-to-r from-transparent md:block lg:w-20" />
             <a
               href="#planos"
-              className="from-mainTheme hover:to-mainTheme inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r to-blue-600 px-6 py-3 font-bold text-white transition-all duration-300 hover:from-blue-500 sm:w-auto md:gap-3 md:rounded-xl md:px-8 md:py-4"
+              className="from-secondaryTheme hover:to-secondaryTheme to-mainTheme text-deepBlue inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r px-6 py-3 font-bold transition-all duration-300 hover:from-yellow-300 sm:w-auto md:gap-3 md:rounded-xl md:px-8 md:py-4"
             >
               <FiStar className="h-4 w-4 md:h-5 md:w-5" />
               <span className="text-sm sm:text-base md:text-lg">
@@ -255,7 +222,7 @@ export default function FeedBack() {
             </a>
             <div className="from-mainTheme hidden h-0.5 w-16 bg-gradient-to-r to-transparent md:block lg:w-20" />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
