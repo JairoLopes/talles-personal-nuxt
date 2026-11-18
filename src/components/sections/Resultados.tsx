@@ -77,7 +77,7 @@ export default function Resultados() {
   ];
 
   const stats = [
-    { value: "+50", label: "Alunos Transformados", color: "text-mainTheme" },
+    { value: "+1500", label: "Alunos Transformados", color: "text-mainTheme" },
     {
       value: "100%",
       label: "Satisfação do Time",
